@@ -11,6 +11,7 @@ class DesainSampel extends Model
 
     protected $table = 'desain_sampels';
     protected $primaryKey = 'id_ds';
+
     protected $fillable = [
         'metode_pemilihan_sampel_akhir',
         'metode_yg_digunakan',

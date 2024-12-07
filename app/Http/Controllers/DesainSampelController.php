@@ -20,6 +20,7 @@ class DesainSampelController extends Controller
 
     public function store(Request $request)
     {
+        // Validasi input
         $validated = $request->validate([
             'metode_pemilihan_sampel_akhir' => 'required|string|max:255',
             'metode_yg_digunakan' => 'required|string|max:255',
@@ -27,7 +28,9 @@ class DesainSampelController extends Controller
             'sarana_pengumpulan_data' => 'required|string|max:255',
         ]);
 
+        // Simpan data ke database
         DesainSampel::create($validated);
+
         return redirect()->route('desain_sampel.index')->with('success', 'Desain Sampel berhasil ditambahkan!');
     }
 
@@ -38,6 +41,7 @@ class DesainSampelController extends Controller
 
     public function update(Request $request, DesainSampel $desainSampel)
     {
+        // Validasi input
         $validated = $request->validate([
             'metode_pemilihan_sampel_akhir' => 'required|string|max:255',
             'metode_yg_digunakan' => 'required|string|max:255',
@@ -45,7 +49,9 @@ class DesainSampelController extends Controller
             'sarana_pengumpulan_data' => 'required|string|max:255',
         ]);
 
+        // Update data ke database
         $desainSampel->update($validated);
+
         return redirect()->route('desain_sampel.index')->with('success', 'Desain Sampel berhasil diperbarui!');
     }
 
