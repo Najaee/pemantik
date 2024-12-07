@@ -12,8 +12,12 @@
 
         <div>
             <label for="tahun">Tahun:</label>
-            <input type="number" name="tahun" id="tahun" value="{{ old('tahun', $kegiatan->tahun) }}" required>
-        </div>
+            <select name="tahun" id="tahun" required>
+                @for ($year = 2020; $year <= 2030; $year++)
+                    <option value="{{ $year }}" {{ old('tahun', $kegiatan->tahun) == $year ? 'selected' : '' }}>{{ $year }}</option>
+                @endfor
+            </select>
+        </div>        
 
         <div>
             <label for="judul_kegiatan">Judul Kegiatan:</label>

@@ -22,8 +22,12 @@
         @csrf
         <div>
             <label>Tahun:</label>
-            <input type="number" name="tahun" required>
-        </div>
+            <select name="tahun" required>
+                @for ($year = 2020; $year <= 2030; $year++)
+                    <option value="{{ $year }}">{{ $year }}</option>
+                @endfor
+            </select>
+        </div>        
         <div>
             <label>Judul Kegiatan:</label>
             <input type="text" name="judul_kegiatan" required>
