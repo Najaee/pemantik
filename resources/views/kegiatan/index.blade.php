@@ -30,7 +30,7 @@
                     <td>{{ $kegiatan->tahun }}</td>
                     <td>{{ $kegiatan->judul_kegiatan }}</td>
                     <td>{{ $kegiatan->sektor_kegiatan }}</td>
-                    <td>{{ $kegiatan->telah_mendapat_rekomendasi ? 'Ya' : 'Tidak' }}</td>
+                    <td>{{ $kegiatan->rekomendasi_bps ? 'Ya' : 'Tidak' }}</td>
                     <td>{{ $kegiatan->nomor_rekomendasi }}</td>
                     <td>{{ $kegiatan->latar_belakang }}</td>
                     <td>{{ $kegiatan->tujuan_manfaat }}</td> <!-- Menampilkan Tujuan & Manfaat -->

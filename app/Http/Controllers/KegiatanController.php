@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class KegiatanController extends Controller
 {
     /**
-     * Menampilkan daftar kegiatan
+     * Menampilkan daftar kegiatan.
      */
     public function index()
     {
@@ -17,117 +17,69 @@ class KegiatanController extends Controller
     }
 
     /**
-     * Menampilkan form tambah kegiatan
+     * Menampilkan form tambah kegiatan.
      */
     public function create()
     {
-        // Kirimkan sektor kegiatan sebagai opsi dropdown
-        $sektor_kegiatan = [
-            'Pertanian dan Perikanan',
-            'Demografi dan Kependudukan',
-            'Pembangunan',
-            'Proyeksi Ekonomi',
-            'Pendidikan dan Pelatihan',
-            'Lingkungan',
-            'Keuangan',
-            'Globalisasi',
-            'Kesehatan',
-            'Industri dan Jasa',
-            'Teknologi Informasi dan Komunikasi',
-            'Perdagangan Internasional dan Neraca Perdagangan',
-            'Ketenagakerjaan',
-            'Neraca Nasional',
-            'Indikator Ekonomi Bulanan',
-            'Produktivitas',
-            'Harga dan Paritas Daya Beli',
-            'Sektor Publik, Perpajakan, dan Regulasi Pasar',
-            'Perwilayahan dan Perkotaan',
-            'Ilmu Pengetahuan dan Hak Paten',
-            'Perlindungan Sosial dan Kesejahteraan',
-            'Transportasi'
-        ];
-        return view('kegiatan.create', compact('sektor_kegiatan'));
+        return view('kegiatan.create');
     }
 
     /**
-     * Menyimpan data kegiatan baru
+     * Menyimpan data kegiatan baru.
      */
     public function store(Request $request)
     {
+        // Validasi input form
         $validated = $request->validate([
             'tahun' => 'required|digits:4|integer',
             'judul_kegiatan' => 'required|string|max:255',
             'sektor_kegiatan' => 'required|string|max:255',
-            'telah_mendapat_rekomendasi' => 'required|boolean',
+            'rekomendasi_bps' => 'required|in:0,1',
             'nomor_rekomendasi' => 'nullable|string|max:255',
             'latar_belakang' => 'required|string',
             'kegiatan' => 'required|string',
-            'tujuan' => 'required|string',
-            'manfaat_kegiatan' => 'required|string',
+            'tujuan_manfaat' => 'required|string',
         ]);
 
+        // Simpan ke database
         Kegiatan::create($validated);
 
         return redirect()->route('kegiatan.index')->with('success', 'Kegiatan berhasil ditambahkan!');
     }
 
     /**
-     * Menampilkan form edit kegiatan
+     * Menampilkan form edit kegiatan.
      */
     public function edit(Kegiatan $kegiatan)
     {
-        // Kirimkan sektor kegiatan sebagai opsi dropdown
-        $sektor_kegiatan = [
-            'Pertanian dan Perikanan',
-            'Demografi dan Kependudukan',
-            'Pembangunan',
-            'Proyeksi Ekonomi',
-            'Pendidikan dan Pelatihan',
-            'Lingkungan',
-            'Keuangan',
-            'Globalisasi',
-            'Kesehatan',
-            'Industri dan Jasa',
-            'Teknologi Informasi dan Komunikasi',
-            'Perdagangan Internasional dan Neraca Perdagangan',
-            'Ketenagakerjaan',
-            'Neraca Nasional',
-            'Indikator Ekonomi Bulanan',
-            'Produktivitas',
-            'Harga dan Paritas Daya Beli',
-            'Sektor Publik, Perpajakan, dan Regulasi Pasar',
-            'Perwilayahan dan Perkotaan',
-            'Ilmu Pengetahuan dan Hak Paten',
-            'Perlindungan Sosial dan Kesejahteraan',
-            'Transportasi'
-        ];
-        return view('kegiatan.edit', compact('kegiatan', 'sektor_kegiatan'));
+        return view('kegiatan.edit', compact('kegiatan'));
     }
 
     /**
-     * Memperbarui data kegiatan
+     * Memperbarui data kegiatan.
      */
     public function update(Request $request, Kegiatan $kegiatan)
     {
+        // Validasi input form
         $validated = $request->validate([
             'tahun' => 'required|digits:4|integer',
             'judul_kegiatan' => 'required|string|max:255',
             'sektor_kegiatan' => 'required|string|max:255',
-            'telah_mendapat_rekomendasi' => 'required|boolean',
+            'rekomendasi_bps' => 'required|in:0,1',
             'nomor_rekomendasi' => 'nullable|string|max:255',
             'latar_belakang' => 'required|string',
             'kegiatan' => 'required|string',
-            'tujuan' => 'required|string',
-            'manfaat_kegiatan' => 'required|string',
+            'tujuan_manfaat' => 'required|string',
         ]);
 
+        // Update data
         $kegiatan->update($validated);
 
         return redirect()->route('kegiatan.index')->with('success', 'Kegiatan berhasil diperbarui!');
     }
 
     /**
-     * Menghapus data kegiatan
+     * Menghapus data kegiatan.
      */
     public function destroy(Kegiatan $kegiatan)
     {
