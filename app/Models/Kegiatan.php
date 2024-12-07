@@ -21,4 +21,9 @@ class Kegiatan extends Model
         'kegiatan',
         'tujuan_manfaat',
     ];
+
+    public function detailKegiatans()
+    {
+        return $this->hasMany(DetailKegiatan::class, 'id_kegiatan');
+    }
 }

@@ -38,4 +38,9 @@ class MsIndikator extends Model
     {
         return $this->belongsTo(VariabelPembangunan::class, 'id_variabel_pembangunan', 'id_variabel_pembangunan');
     }
+
+    public function detailKegiatans()
+    {
+        return $this->hasMany(DetailKegiatan::class, 'id_ms_indikator');
+    }
 }
