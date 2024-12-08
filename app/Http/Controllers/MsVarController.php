@@ -25,7 +25,7 @@ class MsVarController extends Controller
         $request->validate([
             'alias' => 'required|string|max:255',
             'referensi_pemilihan' => 'required|string|max:255',
-            'id_detail_kegiatan' => 'required|exists:detail_kegiatan,id_detail_kegiatan',
+            'id_detail_kegiatan' => 'required|exists:detail_kegiatans,id_detail_kegiatan',
             'tipe_data' => 'required|string|max:255',
             'klasifikasi_isian' => 'required|string|max:255',
             'aturan_validasi' => 'required|string|max:255',
@@ -51,7 +51,7 @@ class MsVarController extends Controller
         $request->validate([
             'alias' => 'required|string|max:255',
             'referensi_pemilihan' => 'required|string|max:255',
-            'id_detail_kegiatan' => 'required|exists:detail_kegiatan,id_detail_kegiatan',
+            'id_detail_kegiatan' => 'required|exists:detail_kegiatans,id_detail_kegiatan',
             'tipe_data' => 'required|string|max:255',
             'klasifikasi_isian' => 'required|string|max:255',
             'aturan_validasi' => 'required|string|max:255',

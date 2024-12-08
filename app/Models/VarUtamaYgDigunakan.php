@@ -18,4 +18,9 @@ class VarUtamaYgDigunakan extends Model
         'referensi_waktu',
         'sumber',
     ];
+
+    public function detailKegiatans()
+    {
+        return $this->hasMany(DetailKegiatan::class, 'id_var_utama_yg_digunakan');
+    }
 }

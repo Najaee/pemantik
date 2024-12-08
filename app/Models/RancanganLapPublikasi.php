@@ -17,4 +17,9 @@ class RancanganLapPublikasi extends Model
         'rancangan_output',
         'rancangan_deskripsi_var',
     ];
+
+    public function detailKegiatans()
+    {
+        return $this->hasMany(DetailKegiatan::class, 'id_rancangan_lap_publikasi');
+    }
 }

@@ -26,4 +26,9 @@ class PetugasPengumpulanData extends Model
         'petugas_pengumpulan_data',
         'persyaratan_petugas_pengumpulan_data',
     ];
+
+    public function detailKegiatans()
+    {
+        return $this->hasMany(DetailKegiatan::class, 'id_petugas_pengumpulan_data');
+    }
 }

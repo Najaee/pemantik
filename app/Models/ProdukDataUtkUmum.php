@@ -18,4 +18,9 @@ class ProdukDataUtkUmum extends Model
         'publikasi_elektronik',
         'publikasi_data_mikro',
     ];
+
+    public function detailKegiatans()
+    {
+        return $this->hasMany(DetailKegiatan::class, 'id_produk_data_utk_umum');
+    }
 }

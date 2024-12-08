@@ -11,10 +11,16 @@ class DesainSampel extends Model
 
     protected $table = 'desain_sampels';
     protected $primaryKey = 'id_ds';
+
     protected $fillable = [
         'metode_pemilihan_sampel_akhir',
         'metode_yg_digunakan',
         'jenis_rancangan_sampel',
         'sarana_pengumpulan_data',
     ];
+
+    public function detailKegiatans()
+    {
+        return $this->hasMany(DetailKegiatan::class, 'id_ds');
+    }
 }

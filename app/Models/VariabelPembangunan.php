@@ -24,4 +24,9 @@ class VariabelPembangunan extends Model
     {
         return $this->belongsTo(Ttd::class, 'id_ttd', 'id_ttd');
     }
+
+    public function detailKegiatans()
+    {
+        return $this->hasMany(DetailKegiatan::class, 'id_variabel_pembangunan');
+    }
 }

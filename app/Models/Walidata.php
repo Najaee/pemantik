@@ -15,4 +15,9 @@ class Walidata extends Model
         'unit_kerja_walidata',
         'email',
     ];
+
+    public function detailKegiatans()
+    {
+        return $this->hasMany(DetailKegiatan::class, 'id_walidata');
+    }
 }

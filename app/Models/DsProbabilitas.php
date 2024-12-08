@@ -19,5 +19,10 @@ class DsProbabilitas extends Model
         'responden',
         'unit_observasi',
     ];
+
+    public function detailKegiatans()
+    {
+        return $this->hasMany(DetailKegiatan::class, 'id_ds_probabilitas');
+    }
 }
 

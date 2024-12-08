@@ -17,4 +17,9 @@ class IndikatorPembangunan extends Model
         'publikasi_ketersediaan',
         'nama',
     ];
+
+    public function detailKegiatans()
+    {
+        return $this->hasMany(DetailKegiatan::class, 'id_indikator_pembangunan');
+    }
 }

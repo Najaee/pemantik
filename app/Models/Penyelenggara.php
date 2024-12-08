@@ -18,4 +18,9 @@ class Penyelenggara extends Model
         'kabupaten_kota',
         'alamat_lengkap_penyelenggara',
     ];
+
+    public function detailKegiatans()
+    {
+        return $this->hasMany(DetailKegiatan::class, 'id_penyelenggara');
+    }
 }

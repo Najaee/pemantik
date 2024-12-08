@@ -20,4 +20,9 @@ class PjJadwalKegiatan extends Model
         'diseminasi',
         'evaluasi',
     ];
+
+    public function detailKegiatans()
+    {
+        return $this->hasMany(DetailKegiatan::class, 'id_pj_jadwal_kegiatan');
+    }
 }

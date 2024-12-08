@@ -15,11 +15,15 @@ class Kegiatan extends Model
         'tahun',
         'judul_kegiatan',
         'sektor_kegiatan',
-        'telah_mendapat_rekomendasi',
+        'rekomendasi_bps',
         'nomor_rekomendasi',
         'latar_belakang',
         'kegiatan',
-        'tujuan',
-        'manfaat_kegiatan',
+        'tujuan_manfaat',
     ];
+
+    public function detailKegiatans()
+    {
+        return $this->hasMany(DetailKegiatan::class, 'id_kegiatan');
+    }
 }

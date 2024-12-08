@@ -24,4 +24,10 @@ class MetodePengolahan extends Model
         'unit_analisis',
         'tingkat_penyajian_data',
     ];
+
+    public function detailKegiatans()
+    {
+        return $this->hasMany(DetailKegiatan::class, 'id_metode_pengolahan');
+    }
+
 }

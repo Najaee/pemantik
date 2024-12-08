@@ -18,4 +18,9 @@ class JmlPengumpulanData extends Model
         'enum',
         'pelatihan_pengumpul_data',
     ];
+
+    public function detailKegiatans()
+    {
+        return $this->hasMany(DetailKegiatan::class, 'id_jml_pengumpulan_data');
+    }
 }

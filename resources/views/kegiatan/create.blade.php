@@ -5,19 +5,37 @@
 </head>
 <body>
     <h1>Tambah Kegiatan</h1>
+
+    <!-- Tampilkan pesan error jika validasi gagal -->
+    @if ($errors->any())
+        <div style="color: red;">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    <!-- Form Tambah Data -->
     <form action="{{ route('kegiatan.store') }}" method="POST">
         @csrf
         <div>
             <label>Tahun:</label>
-            <input type="number" name="tahun" required>
-        </div>
+            <select name="tahun" required>
+                @for ($year = 2020; $year <= 2030; $year++)
+                    <option value="{{ $year }}">{{ $year }}</option>
+                @endfor
+            </select>
+        </div>        
         <div>
             <label>Judul Kegiatan:</label>
             <input type="text" name="judul_kegiatan" required>
         </div>
         <div>
-            <label>Sektor Kegiatan:</label>
-            <select name="sektor_kegiatan" required>
+            <!-- Select Sektor Kegiatan -->
+            <label for="sektor_kegiatan">Sektor Kegiatan:</label>
+            <select name="sektor_kegiatan" id="sektor_kegiatan" required>
                 <option value="" disabled selected>-- Pilih Sektor Kegiatan --</option>
                 <option value="Pertanian dan Perikanan">Pertanian dan Perikanan</option>
                 <option value="Demografi dan Kependudukan">Demografi dan Kependudukan</option>
@@ -41,22 +59,28 @@
                 <option value="Ilmu Pengetahuan dan Hak Paten">Ilmu Pengetahuan dan Hak Paten</option>
                 <option value="Perlindungan Sosial dan Kesejahteraan">Perlindungan Sosial dan Kesejahteraan</option>
                 <option value="Transportasi">Transportasi</option>
-            </select><br>
-        </div>
-        <div>
-            <label>Telah Mendapat Rekomendasi:</label>
-            <select name="telah_mendapat_rekomendasi" required>
-                <option value="1">Ya</option>
-                <option value="0">Tidak</option>
             </select>
         </div>
+        
+        <div>
+            <label for="rekomendasi_bps">Telah Mendapat Rekomendasi:</label>
+            <select name="rekomendasi_bps" id="rekomendasi_bps" required>
+                <option value="1" {{ old('rekomendasi_bps') == '1' ? 'selected' : '' }}>Ya</option>
+                <option value="0" {{ old('rekomendasi_bps') == '0' ? 'selected' : '' }}>Tidak</option>
+            </select>
+        </div>
+       
         <div>
             <label>Nomor Rekomendasi:</label>
             <input type="text" name="nomor_rekomendasi">
         </div>
         <div>
             <label>Latar Belakang:</label>
-            <textarea name="latar_belakang_kegiatan" required></textarea>
+            <textarea name="latar_belakang" required></textarea>
+        </div>
+        <div>
+            <label>Kegiatan:</label>
+            <textarea name="kegiatan" required></textarea>
         </div>
         <div>
             <label>Tujuan & Manfaat Kegiatan:</label>

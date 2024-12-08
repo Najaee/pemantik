@@ -5,20 +5,28 @@
 </head>
 <body>
     <h1>Edit Kegiatan</h1>
+
     <form action="{{ route('kegiatan.update', $kegiatan->id_kegiatan) }}" method="POST">
         @csrf
         @method('PUT')
+
         <div>
-            <label>Tahun:</label>
-            <input type="number" name="tahun" value="{{ $kegiatan->tahun }}" required>
+            <label for="tahun">Tahun:</label>
+            <select name="tahun" id="tahun" required>
+                @for ($year = 2020; $year <= 2030; $year++)
+                    <option value="{{ $year }}" {{ old('tahun', $kegiatan->tahun) == $year ? 'selected' : '' }}>{{ $year }}</option>
+                @endfor
+            </select>
+        </div>        
+
+        <div>
+            <label for="judul_kegiatan">Judul Kegiatan:</label>
+            <input type="text" name="judul_kegiatan" id="judul_kegiatan" value="{{ old('judul_kegiatan', $kegiatan->judul_kegiatan) }}" required>
         </div>
+
         <div>
-            <label>Judul Kegiatan:</label>
-            <input type="text" name="judul_kegiatan" value="{{ $kegiatan->judul_kegiatan }}" required>
-        </div>
-        <div>
-            <label>Sektor Kegiatan:</label>
-            <select name="sektor_kegiatan" required>
+            <label for="sektor_kegiatan">Sektor Kegiatan:</label>
+            <select name="sektor_kegiatan" id="sektor_kegiatan" required>
                 <option value="" disabled>-- Pilih Sektor Kegiatan --</option>
                 <option value="Pertanian dan Perikanan" {{ $kegiatan->sektor_kegiatan == 'Pertanian dan Perikanan' ? 'selected' : '' }}>Pertanian dan Perikanan</option>
                 <option value="Demografi dan Kependudukan" {{ $kegiatan->sektor_kegiatan == 'Demografi dan Kependudukan' ? 'selected' : '' }}>Demografi dan Kependudukan</option>
@@ -45,25 +53,36 @@
             </select>
         </div>
         <div>
-            <label>Rekomendasi BPS</label>
-            <select name="rekomendasi_bps" required>
-                <option value="yes" {{ $kegiatan->rekomendasi_bps === 'yes' ? 'selected' : '' }}>Yes</option>
-                <option value="no" {{ $kegiatan->rekomendasi_bps === 'no' ? 'selected' : '' }}>No</option>
+            <label for="rekomendasi_bps">Telah Mendapat Rekomendasi:</label>
+            <select name="rekomendasi_bps" id="rekomendasi_bps" required>
+                <option value="1" {{ $kegiatan->rekomendasi_bps == 1 ? 'selected' : '' }}>Ya</option>
+                <option value="0" {{ $kegiatan->rekomendasi_bps == 0 ? 'selected' : '' }}>Tidak</option>
             </select>
-        </div>
+        </div>        
+
         <div>
-            <label>Nomor Rekomendasi</label>
-            <input type="text" name="nomor_rekomendasi" value="{{ $kegiatan->nomor_rekomendasi }}">
+            <label for="nomor_rekomendasi">Nomor Rekomendasi:</label>
+            <input type="text" name="nomor_rekomendasi" id="nomor_rekomendasi" value="{{ old('nomor_rekomendasi', $kegiatan->nomor_rekomendasi) }}">
         </div>
+
         <div>
-            <label>Latar Belakang Kegiatan</label>
-            <textarea name="latar_belakang" required>{{ $kegiatan->latar_belakang }}</textarea>
+            <label for="latar_belakang">Latar Belakang:</label>
+            <textarea name="latar_belakang" id="latar_belakang" required>{{ old('latar_belakang', $kegiatan->latar_belakang) }}</textarea>
         </div>
+
         <div>
-            <label>Tujuan dan Manfaat Kegiatan</label>
-            <textarea name="tujuan_manfaat" required>{{ $kegiatan->tujuan_manfaat }}</textarea>
+            <label for="kegiatan">Kegiatan:</label>
+            <textarea name="kegiatan" id="kegiatan" required>{{ old('kegiatan', $kegiatan->kegiatan) }}</textarea>
         </div>
-        <button type="submit">Perbarui</button>
+
+        <div>
+            <label for="tujuan_manfaat">Tujuan & Manfaat Kegiatan:</label>
+            <textarea name="tujuan_manfaat" id="tujuan_manfaat" required>{{ old('tujuan_manfaat', $kegiatan->tujuan_manfaat) }}</textarea>
+        </div>
+
+        <div>
+            <button type="submit">Update</button>
+        </div>
     </form>
-</div>
-@endsection
+</body>
+</html>

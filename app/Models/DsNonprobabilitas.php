@@ -15,4 +15,9 @@ class DsNonprobabilitas extends Model
         'unit_sampel',
         'unit_observasi',
     ];
+
+    public function detailKegiatans()
+    {
+        return $this->hasMany(DetailKegiatan::class, 'id_ds_nonprobabilitas');
+    }
 }

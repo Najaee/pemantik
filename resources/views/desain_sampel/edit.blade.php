@@ -8,14 +8,19 @@
     <form action="{{ route('desain_sampel.update', $desainSampel->id_ds) }}" method="POST">
         @csrf
         @method('PUT')
+
         <label>Metode Pemilihan Sampel Akhir:</label>
-        <input type="text" name="metode_pemilihan_sampel_akhir" value="{{ $desainSampel->metode_pemilihan_sampel_akhir }}" required>
+        <input type="text" name="metode_pemilihan_sampel_akhir" value="{{ $desainSampel->metode_pemilihan_sampel_akhir }}" required><br>
+
         <label>Metode yang Digunakan:</label>
-        <input type="text" name="metode_yg_digunakan" value="{{ $desainSampel->metode_yg_digunakan }}" required>
+        <input type="text" name="metode_yg_digunakan" value="{{ $desainSampel->metode_yg_digunakan }}" required><br>
+
         <label>Jenis Rancangan Sampel:</label>
-        <input type="text" name="jenis_rancangan_sampel" value="{{ $desainSampel->jenis_rancangan_sampel }}" required>
+        <input type="text" name="jenis_rancangan_sampel" value="{{ $desainSampel->jenis_rancangan_sampel }}" required><br>
+
         <label>Sarana Pengumpulan Data:</label>
-        <input type="text" name="sarana_pengumpulan_data" value="{{ $desainSampel->sarana_pengumpulan_data }}" required>
+        <input type="text" name="sarana_pengumpulan_data" value="{{ $desainSampel->sarana_pengumpulan_data }}" required><br>
+
         <button type="submit">Update</button>
     </form>
 </body>

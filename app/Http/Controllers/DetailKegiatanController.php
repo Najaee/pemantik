@@ -3,45 +3,81 @@
 namespace App\Http\Controllers;
 
 use App\Models\DetailKegiatan;
+use App\Models\Kegiatan;
+use App\Models\Penyelenggara;
+use App\Models\PjKegiatan;
+use App\Models\PjTeknisKegiatan;
+use App\Models\Walidata;
+use App\Models\PjJadwalKegiatan;
+use App\Models\VarUtamaYgDigunakan;
+use App\Models\JmlPengumpulanData;
+use App\Models\RancanganLapPublikasi;
+use App\Models\MetodePengolahan;
+use App\Models\ProdukDataUtkUmum;
+use App\Models\PetugasPengumpulanData;
+use App\Models\DesainSampel;
+use App\Models\DsNonprobabilitas;
+use App\Models\DsProbabilitas;
+use App\Models\IndikatorPembangunan;
+use App\Models\VariabelPembangunan;
+use App\Models\MsIndikator;
 use Illuminate\Http\Request;
 
 class DetailKegiatanController extends Controller
 {
     public function index()
     {
-        // Mengambil data dengan relasi
-        $detailKegiatans = DetailKegiatan::with([
-            'kegiatan',
-            'penyelenggara',
-            'pjKegiatan',
-            'pjTeknisKegiatan',
-            'walidata',
-            'pjJadwalKegiatan',
-            'varUtama',
-            'jmlPengumpulanData',
-            'rancanganPublikasi',
-            'metodePengolahan',
-            'produkData',
-            'petugasPengumpulanData',
-            'desainSampel',
-            'dsNonProbabilitas',
-            'dsProbabilitas',
-            'indikatorPembangunan',
-            'variabelPembangunan',
-            'msIndikator',
-        ])->get();
-
+        $detailKegiatans = DetailKegiatan::all();
         return view('detail_kegiatan.index', compact('detailKegiatans'));
     }
 
     public function create()
     {
-        // Anda bisa mengirimkan data relasi ke view untuk dropdown atau opsi lainnya
-        return view('detail_kegiatan.create');
+        // Mengambil data terkait untuk form pembuatan DetailKegiatan
+        $kegiatans = Kegiatan::all();
+        $penyelenggaras = Penyelenggara::all();
+        $pjKegiatans = PjKegiatan::all();
+        $pjTeknisKegiatans = PjTeknisKegiatan::all();
+        $walidatas = Walidata::all();
+        $pjJadwalKegiatans = PjJadwalKegiatan::all();
+        $varUtamaYgDigunakan = VarUtamaYgDigunakan::all();
+        $jmlPengumpulanData = JmlPengumpulanData::all();
+        $rancanganLapPublikasi = RancanganLapPublikasi::all();
+        $metodePengolahan = MetodePengolahan::all();
+        $produkDataUtkUmum = ProdukDataUtkUmum::all();
+        $petugasPengumpulanData = PetugasPengumpulanData::all();
+        $desainSampels = DesainSampel::all();
+        $dsNonprobabilitases = DsNonprobabilitas::all();
+        $dsProbabilitases = DsProbabilitas::all();
+        $indikatorPembangunans = IndikatorPembangunan::all();
+        $variabelPembangunans = VariabelPembangunan::all();
+        $msIndikators = MsIndikator::all();
+
+        return view('detail_kegiatan.create', compact(
+            'penyelenggaras',
+            'pjKegiatans',
+            'pjTeknisKegiatans',
+            'walidatas',
+            'pjJadwalKegiatans',
+            'varUtamaYgDigunakan',
+            'jmlPengumpulanData',
+            'rancanganLapPublikasi',
+            'metodePengolahan',
+            'produkDataUtkUmum',
+            'petugasPengumpulanData',
+            'desainSampels',
+            'dsNonprobabilitases',
+            'dsProbabilitases',
+            'indikatorPembangunans',
+            'variabelPembangunans',
+            'msIndikators',
+            'kegiatans'
+        ));
     }
 
     public function store(Request $request)
     {
+        // Validasi input form
         $validated = $request->validate([
             'id_kegiatan' => 'required|exists:kegiatans,id_kegiatan',
             'id_penyelenggara' => 'required|exists:penyelenggaras,id_penyelenggara',
@@ -61,42 +97,64 @@ class DetailKegiatanController extends Controller
             'id_indikator_pembangunan' => 'required|exists:indikator_pembangunan,id_indikator_pembangunan',
             'id_variabel_pembangunan' => 'required|exists:variabel_pembangunan,id_variabel_pembangunan',
             'id_ms_indikator' => 'required|exists:ms_indikator,id_ms_indikator',
+
         ]);
 
+        // Menyimpan data DetailKegiatan
         DetailKegiatan::create($validated);
 
-        return redirect()->route('detail_kegiatan.index')->with('success', 'Data berhasil disimpan!');
+        return redirect()->route('detail_kegiatan.index')->with('success', 'Detail kegiatan berhasil ditambahkan');
     }
 
-    public function edit(DetailKegiatan $detailKegiatan)
+    public function edit($id)
     {
-        // Mengirim data relasi untuk edit
-        $detailKegiatan->load([
-            'kegiatan',
-            'penyelenggara',
-            'pjKegiatan',
-            'pjTeknisKegiatan',
-            'walidata',
-            'pjJadwalKegiatan',
-            'varUtama',
+        // Mengambil data untuk form edit
+        $detailKegiatan = DetailKegiatan::findOrFail($id);
+        $kegiatans = Kegiatan::all();
+        $penyelenggaras = Penyelenggara::all();
+        $pjKegiatans = PjKegiatan::all();
+        $pjTeknisKegiatans = PjTeknisKegiatan::all();
+        $walidatas = Walidata::all();
+        $pjJadwalKegiatans = PjJadwalKegiatan::all();
+        $varUtamaYgDigunakan = VarUtamaYgDigunakan::all();
+        $jmlPengumpulanData = JmlPengumpulanData::all();
+        $rancanganLapPublikasi = RancanganLapPublikasi::all();
+        $metodePengolahan = MetodePengolahan::all();
+        $produkDataUtkUmum = ProdukDataUtkUmum::all();
+        $petugasPengumpulanData = PetugasPengumpulanData::all();
+        $desainSampels = DesainSampel::all();
+        $dsNonprobabilitases = DsNonprobabilitas::all();
+        $dsProbabilitases = DsProbabilitas::all();
+        $indikatorPembangunans = IndikatorPembangunan::all();
+        $variabelPembangunans = VariabelPembangunan::all();
+        $msIndikators = MsIndikator::all();
+
+        return view('detail_kegiatan.edit', compact(
+            'detailKegiatan',
+            'penyelenggaras',
+            'pjKegiatans',
+            'pjTeknisKegiatans',
+            'walidatas',
+            'pjJadwalKegiatans',
+            'varUtamaYgDigunakan',
             'jmlPengumpulanData',
-            'rancanganPublikasi',
+            'rancanganLapPublikasi',
             'metodePengolahan',
-            'produkData',
+            'produkDataUtkUmum',
             'petugasPengumpulanData',
-            'desainSampel',
-            'dsNonProbabilitas',
-            'dsProbabilitas',
-            'indikatorPembangunan',
-            'variabelPembangunan',
-            'msIndikator',
-        ]);
-
-        return view('detail_kegiatan.edit', compact('detailKegiatan'));
+            'desainSampels',
+            'dsNonprobabilitases',
+            'dsProbabilitases',
+            'indikatorPembangunans',
+            'variabelPembangunans',
+            'msIndikators',
+            'kegiatans'
+        ));
     }
 
-    public function update(Request $request, DetailKegiatan $detailKegiatan)
+    public function update(Request $request, $id)
     {
+        // Validasi dan update data DetailKegiatan
         $validated = $request->validate([
             'id_kegiatan' => 'required|exists:kegiatans,id_kegiatan',
             'id_penyelenggara' => 'required|exists:penyelenggaras,id_penyelenggara',
@@ -116,16 +174,19 @@ class DetailKegiatanController extends Controller
             'id_indikator_pembangunan' => 'required|exists:indikator_pembangunan,id_indikator_pembangunan',
             'id_variabel_pembangunan' => 'required|exists:variabel_pembangunan,id_variabel_pembangunan',
             'id_ms_indikator' => 'required|exists:ms_indikator,id_ms_indikator',
+
         ]);
 
+        $detailKegiatan = DetailKegiatan::findOrFail($id);
         $detailKegiatan->update($validated);
 
-        return redirect()->route('detail_kegiatan.index')->with('success', 'Data berhasil diperbarui!');
+        return redirect()->route('detail_kegiatan.index')->with('success', 'Detail kegiatan berhasil diperbarui');
     }
 
-    public function destroy(DetailKegiatan $detailKegiatan)
+    public function destroy($id)
     {
-        $detailKegiatan->delete();
-        return redirect()->route('detail_kegiatan.index')->with('success', 'Data berhasil dihapus!');
+        // Menghapus DetailKegiatan berdasarkan ID
+        DetailKegiatan::destroy($id);
+        return redirect()->route('detail_kegiatan.index')->with('success', 'Detail kegiatan berhasil dihapus');
     }
 }

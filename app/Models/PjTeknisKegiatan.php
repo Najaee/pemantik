@@ -19,4 +19,8 @@ class PjTeknisKegiatan extends Model
         'email',
         'fax',
     ];
+    public function detailKegiatans()
+    {
+        return $this->hasMany(DetailKegiatan::class, 'id_pj_teknis_kegiatan');
+    }
 }
